@@ -1,6 +1,6 @@
-from player import Player
+#from player import Player
 from enemy import Enemy
-from world import World
+#from world2 import World
 
 
 def main():
@@ -14,5 +14,12 @@ def main():
         if x == "a":
             player.print_health()
         x = input("Press enter to exit ")
-main()
+#main()
+
+def test():
+    enemy1 = Enemy(40, "Robert")
+    print(enemy1)
+    enemy1.__del__
+
+test()
     

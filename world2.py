@@ -1,14 +1,26 @@
 from player import Player
 from enemy import Enemy
 from tkinter import *
+from random import randint
+from datetime import datetime, timedelta
+
+
+ini_time_for_now = datetime.now()
+
 
 root = Tk()
 root.title("Game Test")
 #root.iconbitmap("C:\Users\CmpMean\Coding\icon.ico")
 #root.geometry("400x400")
 img = PhotoImage(file="bee.png")
-
+img2 = PhotoImage(file="enemy_icon.png")
 player = Player(3, "AVS")
+enemies = []
+ge_names = open("german_names.txt")
+for line in ge_names:
+    line = line.rstrip().split()   
+    enemies.append(Enemy(randint(10, 30), line))
+
 class World:
     def __init__(self, master, widthx, heighty):
         self._health = player.return_health()
@@ -65,7 +77,12 @@ class World:
         self._heal = Button(self._canvas, text=f'Heal {player.return_medkits()}', command=self.heal)
         self._heal.pack()
         self._heal.place(x=300, y=300)
-        
+        x = 0
+        for object in enemies:
+            
+            if object._ID == randint(1, 20):
+                self._enemy = self._canvas.create_image(9+(x*2), 9, anchor=NW, image=img2)
+                x += 9
         #############
         # FIRING
         
@@ -98,7 +115,8 @@ class World:
         if player.check_gameover() == True:
             print("Game Over")
             root.destroy()
-        self.update_healthbar()
+        if player.check_gameover() == False:
+            self.update_healthbar()
 
     def heal(self):
         player.heal_medkit()

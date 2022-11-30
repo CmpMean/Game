@@ -49,6 +49,8 @@ class Player:
     def check_gameover(self):
         if self._status == "Dead":
             return True
+        else:
+            return False
 
     def print_health(self):
         print(f'Health remaining: {self._health}')
